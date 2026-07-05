@@ -1,0 +1,87 @@
+specification: FinOps Framework
+specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: GrowthZone
+providerId: growthzone
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Association Management
+- AMS
+- Membership Management
+- FinOps
+- Cost Management
+- FOCUS
+description: >-
+  FinOps view of GrowthZone spend. GrowthZone is a SaaS association management
+  platform billed as a quote-based annual subscription tiered by organization
+  size / member count, with API Access as a gated add-on enabled per account.
+  There is no public usage-metered API billing - the API rides on the underlying
+  subscription rather than being charged per call. The dominant cost is therefore
+  the platform subscription (and any enablement/enterprise fees), not per-request
+  API consumption.
+notes: >-
+  Per-unit and per-tier prices are not public; all pricing is contact-sales. Track
+  spend as a fixed annual subscription plus any negotiated API/enterprise line
+  items rather than as variable API usage. Confirm the invoice structure with
+  GrowthZone during reconciliation.
+sources:
+- https://www.growthzone.com
+- https://integration.growthzone.com/growthzone-api/
+- https://focus.finops.org/focus-specification/v1-3/
+alignedWith:
+  framework: FinOps Foundation Framework
+  frameworkUrl: https://www.finops.org/framework/
+  dataSpec: FOCUS
+  dataSpecVersion: '1.3'
+  dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
+publisherName: GrowthZone
+serviceCategory: Business Applications
+billingModel:
+  pricingCategory: Subscription-Based
+  billingFrequency: Annual
+  billingCurrency: USD
+  chargeCategories:
+  - Purchase
+  - Adjustment
+focusColumns:
+  ServiceName: GrowthZone AMS
+  ServiceCategory: Business Applications
+  ProviderName: GrowthZone
+  PublisherName: GrowthZone
+  InvoiceIssuerName: GrowthZone
+  BillingCurrency: USD
+  ChargeCategory: Purchase
+  PricingCategory: Subscription-Based
+meters:
+- name: platform_subscription
+  description: Annual GrowthZone AMS subscription, tiered by organization size / member count.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+- name: api_access
+  description: API Access add-on enablement fee, when the base subscription does not already include it.
+  unit: subscription
+  aggregation: sum
+  dimensions:
+  - account
+- name: member_count
+  description: Number of members / records, the primary driver of subscription tier.
+  unit: members
+  aggregation: max
+  dimensions:
+  - account
+principles:
+- name: Visibility
+  description: Treat GrowthZone as a fixed annual subscription line item; there is no per-call API meter to monitor.
+- name: Allocation
+  description: Attribute the subscription (and any API/enterprise fees) to the association department that owns member operations.
+- name: Optimization
+  description: Right-size the subscription tier to actual member count; use the delta feed to integrate efficiently rather than adding modules you do not use.
+- name: Accountability
+  description: Review the subscription and any API-access line items at annual renewal against realized integration value.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

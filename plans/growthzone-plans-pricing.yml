@@ -1,0 +1,106 @@
+specification: API Commons Plans
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/Plans
+provider: GrowthZone
+providerId: growthzone
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Association Management
+- AMS
+- Membership Management
+- API Access
+- Plans
+description: >-
+  GrowthZone is sold as association management software with tiered subscription
+  plans priced by organization size / member count, and pricing is quote-based
+  (contact sales - no public rate card). The REST API is not a standalone product
+  with its own published price; it is an add-on capability gated per account. To
+  use the API you request an API Key from GrowthZone WebSupport, which first
+  verifies whether your subscription has API Access enabled. If it does not, the
+  GrowthZone Engagement team reaches out with a quote to enable it. There is no
+  self-service, usage-metered API billing surface documented publicly.
+notes: >-
+  All plan and API-access pricing is contact-sales / quote-based. The tiers below
+  are modeled to reflect GrowthZone's structure (subscription AMS plus a gated API
+  add-on); exact prices, member-count breakpoints, and included modules must be
+  confirmed with GrowthZone sales during reconciliation.
+sources:
+- https://www.growthzone.com
+- https://integration.growthzone.com/growthzone-api/
+- https://helpdesk.growthzone.com/kb/article/33-growthzone-api-key-authentication/
+plans:
+- id: growthzone-subscription
+  name: GrowthZone AMS Subscription
+  type: paid
+  description: >-
+    Core association management platform - membership management, contacts,
+    events, billing, directories, communications - sold as an annual
+    subscription tiered by organization size and member count. Pricing is
+    quote-based via GrowthZone sales.
+  entries:
+  - label: Platform Subscription
+    name: platform_subscription
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales (quote-based, tiered by member count)
+    userMultiplied: false
+  elements:
+  - name: Membership Management
+  - name: Contacts and Organizations
+  - name: Events and Registration
+  - name: Invoicing and Scheduled Billing
+  - name: Member Directory
+  - name: Communications
+- id: growthzone-api-access
+  name: API Access Add-On
+  type: paid
+  description: >-
+    Enables the GrowthZone REST API on an eligible subscription and provisions
+    per-application API Keys via WebSupport. If an account does not already have
+    API Access, the Engagement team provides a quote to enable it.
+  entries:
+  - label: API Access Enablement
+    name: api_access
+    type: flat
+    metric: subscription
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales (quote to enable API Access)
+    userMultiplied: false
+  elements:
+  - name: REST API (contacts, memberships, groups, billing, certifications)
+  - name: Per-Application API Keys
+  - name: OAuth 2.0 / OpenID Connect SSO
+  - name: Integration Documentation
+- id: growthzone-enterprise
+  name: Enterprise / Custom
+  type: enterprise
+  description: >-
+    Custom arrangements for larger associations and federations - additional
+    modules, higher volume, and negotiated terms. Contact GrowthZone.
+  entries:
+  - label: Enterprise Agreement
+    name: enterprise
+    type: flat
+    metric: contract
+    limit: -1
+    timeFrame: year
+    geo: global
+    unit: 1
+    price: contact sales
+    userMultiplied: false
+  elements:
+  - name: Custom Modules
+  - name: Negotiated Terms
+  - name: Onboarding and Support
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

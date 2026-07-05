@@ -1,0 +1,175 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GrowthZone REST API",
+    "version": "1.0",
+    "description": "Programmatic access to a GrowthZone association management (AMS) database - contacts (members and organizations), memberships, groups/directory, scheduled billing, certifications, and events. Base URL https://{subdomain}.growthzoneapp.com/api. Customer/partner-gated: account needs API Access enabled and an API Key from GrowthZone WebSupport. Auth via 'Authorization: ApiKey {apiKey}' header. Items marked (Modeled) are inferred."
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "apikey": {
+        "key": "Authorization",
+        "value": "ApiKey {{apiKey}}",
+        "in": "header"
+      }
+    }
+  },
+  "items": [
+    {
+      "info": { "name": "Contacts", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List contacts (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts", "params": [{ "name": "page", "value": "1", "type": "query" }, { "name": "pageSize", "value": "100", "type": "query" }] },
+          "docs": "Paged list of contacts. Returns TotalRecordAvailable and a Results array."
+        },
+        {
+          "info": { "name": "List changed contacts (delta) (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/delta", "params": [{ "name": "since", "value": "2026-01-01T00:00:00Z", "type": "query" }] },
+          "docs": "Contacts created or modified since the supplied date."
+        },
+        {
+          "info": { "name": "Get individual (person) (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/person/:contactId", "params": [{ "name": "contactId", "value": "", "type": "path" }] },
+          "docs": "Expanded individual contact."
+        },
+        {
+          "info": { "name": "Get person summary (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/PersonSummary/:contactId", "params": [{ "name": "contactId", "value": "", "type": "path" }] },
+          "docs": "Basic individual contact summary."
+        },
+        {
+          "info": { "name": "Get organization summary (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/OrgGeneral/:contactId", "params": [{ "name": "contactId", "value": "", "type": "path" }] },
+          "docs": "Organization contact summary."
+        },
+        {
+          "info": { "name": "Get contact addresses (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/ContactAddresses/:contactId", "params": [{ "name": "contactId", "value": "", "type": "path" }] },
+          "docs": "Addresses for the contact."
+        },
+        {
+          "info": { "name": "Get primary contact emails (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/PrimaryContact/Emails/:primaryContactId", "params": [{ "name": "primaryContactId", "value": "", "type": "path" }] },
+          "docs": "Email addresses for the primary contact."
+        },
+        {
+          "info": { "name": "Get contact websites (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/lookup/:contactId/contactwebsites", "params": [{ "name": "contactId", "value": "", "type": "path" }] },
+          "docs": "Website URLs for the contact."
+        },
+        {
+          "info": { "name": "Get contact notes and custom fields (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/:contactId/NotesAndFields", "params": [{ "name": "contactId", "value": "", "type": "path" }] },
+          "docs": "Notes and custom field values for the contact."
+        },
+        {
+          "info": { "name": "Get person category summary (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/person/:contactId/categorySummary", "params": [{ "name": "contactId", "value": "", "type": "path" }] },
+          "docs": "Category summary for an individual."
+        },
+        {
+          "info": { "name": "Get person memberships (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/person/:contactId/memberships", "params": [{ "name": "contactId", "value": "", "type": "path" }] },
+          "docs": "Memberships held by an individual."
+        },
+        {
+          "info": { "name": "Get organization groups (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/contacts/org/:contactId/groups", "params": [{ "name": "contactId", "value": "", "type": "path" }] },
+          "docs": "Groups an organization belongs to."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Memberships", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List membership types (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/memberships/types", "params": [{ "name": "page", "value": "1", "type": "query" }, { "name": "pageSize", "value": "100", "type": "query" }] },
+          "docs": "All membership types, paged."
+        },
+        {
+          "info": { "name": "List all memberships (Confirmed)", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{subdomain}}.growthzoneapp.com/api/memberships/all", "body": { "type": "json", "data": "{\n  \"MembershipTypeId\": null,\n  \"MembershipStatusTypeId\": 2,\n  \"Page\": 1,\n  \"PageSize\": 100\n}" } },
+          "docs": "All memberships filtered by type/status (2 = Active). Returns TotalRecordAvailable and Results."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Groups & Directory", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Get groups by categories (Confirmed)", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{subdomain}}.growthzoneapp.com/api/GroupsApi_GetGroupsByCategories", "body": { "type": "json", "data": "{\n  \"CategoryIds\": [1, 2, 3]\n}" } },
+          "docs": "Resolves groups for one or more categories."
+        },
+        {
+          "info": { "name": "List group members (Modeled)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/groups/:groupId/members", "params": [{ "name": "groupId", "value": "", "type": "path" }] },
+          "docs": "Modeled. Member contacts belonging to a group."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Certifications", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Mark certification component completed (Confirmed)", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{subdomain}}.growthzoneapp.com/api/certifications/:certificationContactId/Components/:certificationComponentId/Completed", "params": [{ "name": "certificationContactId", "value": "", "type": "path" }, { "name": "certificationComponentId", "value": "", "type": "path" }], "body": { "type": "json", "data": "{}" } },
+          "docs": "Marks a certification component complete for a contact."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Scheduled Billing", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "Preview scheduled billing items (Confirmed)", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{subdomain}}.growthzoneapp.com/api/scheduledbilling/membershiptype/items", "body": { "type": "json", "data": "{\n  \"MembershipTypeId\": 1,\n  \"BillingDate\": \"2026-08-01\"\n}" } },
+          "docs": "Preview items that would be billed for a membership type."
+        },
+        {
+          "info": { "name": "Export scheduled billing items (Confirmed)", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{subdomain}}.growthzoneapp.com/api/scheduledbilling/membershiptype/items/export", "body": { "type": "json", "data": "{\n  \"MembershipTypeId\": 1,\n  \"BillingDate\": \"2026-08-01\"\n}" } },
+          "docs": "Export the billing items."
+        },
+        {
+          "info": { "name": "Set up scheduled billing run (Confirmed)", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{subdomain}}.growthzoneapp.com/api/scheduledbilling/membershiptype/items/run/setup", "body": { "type": "json", "data": "{\n  \"MembershipTypeId\": 1,\n  \"BillingDate\": \"2026-08-01\"\n}" } },
+          "docs": "Configure a scheduled billing run."
+        },
+        {
+          "info": { "name": "Run scheduled billing (Confirmed)", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{subdomain}}.growthzoneapp.com/api/scheduledbilling/membershiptype/items/run", "body": { "type": "json", "data": "{\n  \"MembershipTypeId\": 1,\n  \"BillingDate\": \"2026-08-01\"\n}" } },
+          "docs": "Run scheduled billing; returns a SystemJobId."
+        },
+        {
+          "info": { "name": "List billing run history (Confirmed)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/scheduledbilling/membershiptype/run/history" },
+          "docs": "History of past scheduled billing runs."
+        },
+        {
+          "info": { "name": "Download billing run (Confirmed)", "type": "http" },
+          "http": { "method": "POST", "url": "https://{{subdomain}}.growthzoneapp.com/api/scheduledbilling/membershiptype/run/history/download/:systemjobid", "params": [{ "name": "systemjobid", "value": "", "type": "path" }] },
+          "docs": "Download a billing run result by system job id."
+        }
+      ]
+    },
+    {
+      "info": { "name": "Events", "type": "folder" },
+      "items": [
+        {
+          "info": { "name": "List events (Modeled)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/events", "params": [{ "name": "startDate", "value": "2026-08-01", "type": "query" }, { "name": "endDate", "value": "2026-08-31", "type": "query" }] },
+          "docs": "Modeled from the ChamberMaster/MemberZone event feed. Events by date range and status."
+        },
+        {
+          "info": { "name": "Get event details (Modeled)", "type": "http" },
+          "http": { "method": "GET", "url": "https://{{subdomain}}.growthzoneapp.com/api/events/:eventId", "params": [{ "name": "eventId", "value": "", "type": "path" }] },
+          "docs": "Modeled. Details for a single event."
+        }
+      ]
+    }
+  ]
+}

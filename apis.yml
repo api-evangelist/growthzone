@@ -1,0 +1,193 @@
+aid: growthzone
+url: https://raw.githubusercontent.com/api-evangelist/growthzone/refs/heads/main/apis.yml
+name: GrowthZone
+kind: company
+description: GrowthZone is association management software (AMS) for chambers of commerce,
+  trade and professional associations, and member-based organizations - covering membership
+  management, member and organization contacts, event registration, invoicing and
+  scheduled billing, member directories, certifications, and communications. The GrowthZone
+  REST API (base https://{subdomain}.growthzoneapp.com/api) exposes this data programmatically
+  for CMS/directory embeds, SSO, and mobile integrations. It is a partner/customer-gated
+  API - access requires an account with API Access enabled and an API Key issued by GrowthZone
+  WebSupport - and is documented publicly at integration.growthzone.com. GrowthZone also
+  operates ChamberMaster and MemberZone, which expose a separate legacy REST API. OAuth 2.0 /
+  OpenID Connect is supported for SSO.
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+tags:
+- Association Management
+- AMS
+- Membership Management
+- Chambers of Commerce
+- ChamberMaster
+- Member Directory
+- Events
+- Billing
+created: '2026-07-05'
+modified: '2026-07-05'
+specificationVersion: '0.19'
+apis:
+- aid: growthzone:growthzone-contacts-api
+  name: GrowthZone Contacts API
+  tags:
+  - Contacts
+  - Members
+  - Organizations
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://integration.growthzone.com/growthzone-api/
+  baseURL: https://{subdomain}.growthzoneapp.com/api
+  properties:
+  - url: https://integration.growthzone.com/growthzone-api/
+    type: Documentation
+  - url: https://documentation.growthzoneapp.com/CuratedApi.html
+    type: APIReference
+  - url: openapi/growthzone-openapi.yml
+    type: OpenAPI
+  - url: collections/growthzone.postman_collection.json
+    type: PostmanCollection
+  - url: collections/growthzone.opencollection.json
+    type: OpenCollection
+  description: Retrieve and page contacts - both individuals (persons) and organizations - with
+    related addresses, emails, websites, categories, notes/custom fields, group memberships, and
+    a delta feed of contacts changed since a given date. The core read surface for embedding
+    member and organization data into a CMS or another application.
+- aid: growthzone:growthzone-memberships-api
+  name: GrowthZone Memberships API
+  tags:
+  - Memberships
+  - Membership Types
+  - Members
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://integration.growthzone.com/growthzone-api/
+  baseURL: https://{subdomain}.growthzoneapp.com/api
+  properties:
+  - url: https://integration.growthzone.com/growthzone-api/
+    type: Documentation
+  - url: https://documentation.growthzoneapp.com/CuratedApi.html
+    type: APIReference
+  - url: openapi/growthzone-openapi.yml
+    type: OpenAPI
+  - url: collections/growthzone.postman_collection.json
+    type: PostmanCollection
+  - url: collections/growthzone.opencollection.json
+    type: OpenCollection
+  description: List membership types and page all memberships (optionally filtered by type and
+    membership status - Prospective, Active, Courtesy, NonMember, Inactive), including membership
+    change events. Underpins member rosters, join dates, and status-driven directory listings.
+- aid: growthzone:growthzone-groups-directory-api
+  name: GrowthZone Groups & Directory API
+  tags:
+  - Groups
+  - Directory
+  - Categories
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://integration.growthzone.com/growthzone-api/
+  baseURL: https://{subdomain}.growthzoneapp.com/api
+  properties:
+  - url: https://integration.growthzone.com/growthzone-api/
+    type: Documentation
+  - url: https://documentation.growthzoneapp.com/CuratedApi.html
+    type: APIReference
+  - url: openapi/growthzone-openapi.yml
+    type: OpenAPI
+  - url: collections/growthzone.postman_collection.json
+    type: PostmanCollection
+  - url: collections/growthzone.opencollection.json
+    type: OpenCollection
+  description: Resolve groups by category and list group members, plus category summaries used to
+    build searchable, category-filtered member directories embedded in a public website.
+- aid: growthzone:growthzone-scheduled-billing-api
+  name: GrowthZone Scheduled Billing API
+  tags:
+  - Billing
+  - Invoices
+  - Scheduled Billing
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://documentation.growthzoneapp.com/ScheduledBilling.html
+  baseURL: https://{subdomain}.growthzoneapp.com/api
+  properties:
+  - url: https://documentation.growthzoneapp.com/ScheduledBilling.html
+    type: APIReference
+  - url: openapi/growthzone-openapi.yml
+    type: OpenAPI
+  - url: collections/growthzone.postman_collection.json
+    type: PostmanCollection
+  - url: collections/growthzone.opencollection.json
+    type: OpenCollection
+  description: Preview, export, set up, and run scheduled recurring membership billing by
+    membership type, and retrieve and download the history of past billing runs. Drives
+    automated dues invoicing across the member base.
+- aid: growthzone:growthzone-certifications-api
+  name: GrowthZone Certifications API
+  tags:
+  - Certifications
+  - Continuing Education
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://documentation.growthzoneapp.com/CuratedApi.html
+  baseURL: https://{subdomain}.growthzoneapp.com/api
+  properties:
+  - url: https://documentation.growthzoneapp.com/CuratedApi.html
+    type: APIReference
+  - url: openapi/growthzone-openapi.yml
+    type: OpenAPI
+  - url: collections/growthzone.postman_collection.json
+    type: PostmanCollection
+  - url: collections/growthzone.opencollection.json
+    type: OpenCollection
+  description: Mark certification components complete for a contact's certification track,
+    supporting continuing-education and credentialing programs run inside GrowthZone.
+- aid: growthzone:growthzone-events-api
+  name: GrowthZone Events API
+  tags:
+  - Events
+  - Registration
+  - Calendar
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://integration.growthzone.com/chambermaster-or-memberzone-api-documentation/
+  baseURL: https://{subdomain}.growthzoneapp.com/api
+  properties:
+  - url: https://integration.growthzone.com/chambermaster-or-memberzone-api-documentation/
+    type: Documentation
+  - url: openapi/growthzone-openapi.yml
+    type: OpenAPI
+  - url: collections/growthzone.postman_collection.json
+    type: PostmanCollection
+  - url: collections/growthzone.opencollection.json
+    type: OpenCollection
+  description: List and filter events by date range and status for embedding association event
+    calendars into a website or mobile app. Modeled from GrowthZone's ChamberMaster/MemberZone
+    event feed (legacy base api.micronetonline.com/v1); exact GrowthZone-native event paths are
+    behind the gated reference.
+- aid: growthzone:growthzone-oauth-oidc-api
+  name: GrowthZone OAuth / OpenID Connect (SSO) API
+  tags:
+  - OAuth
+  - OpenID Connect
+  - SSO
+  - Authentication
+  image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/apis-json-logo.jpg
+  humanURL: https://integration.growthzone.com/growthzone-oauth-documentation/
+  baseURL: https://growthzoneapp.com
+  properties:
+  - url: https://integration.growthzone.com/growthzone-oauth-documentation/
+    type: Documentation
+  - url: openapi/growthzone-openapi.yml
+    type: OpenAPI
+  description: OpenID Connect provider for single sign-on - authorize, token, userinfo, and JWKS
+    endpoints supporting authorization-code, implicit, and hybrid flows with the openid, profile,
+    and email scopes. Lets a website or app authenticate members against their GrowthZone identity.
+common:
+- type: LinkedIn
+  url: https://www.linkedin.com/company/growthzone
+- type: Website
+  url: https://www.growthzone.com
+- type: Documentation
+  url: https://integration.growthzone.com
+- type: Plans
+  url: plans/growthzone-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/growthzone-rate-limits.yml
+- type: FinOps
+  url: finops/growthzone-finops.yml
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

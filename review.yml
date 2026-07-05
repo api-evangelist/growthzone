@@ -1,0 +1,119 @@
+aid: growthzone
+name: GrowthZone
+review:
+  question: Does GrowthZone expose a documented public WebSocket API?
+  answer: false
+  date: '2026-07-05'
+  reviewer: API Evangelist
+  asyncapiSpecCreated: false
+  asyncapiScopeNote: |
+    No AsyncAPI document was authored. GrowthZone's documented API surface is
+    request/response REST over HTTPS, served per customer database at
+    https://{subdomain}.growthzoneapp.com/api and authenticated with an
+    'Authorization: ApiKey {key}' header (OAuth 2.0 / OpenID Connect is offered
+    for user SSO). There is no server-push transport (WebSocket or SSE) on
+    GrowthZone's public API to model. The ChamberMaster/MemberZone (MicroNet)
+    legacy API is likewise REST/OData. Streaming-style syncing is done by
+    polling the REST delta feed (GET /api/contacts/delta), not by a socket.
+findings:
+  summary: |
+    GrowthZone does not publish a documented public WebSocket API. GrowthZone is
+    association management software (AMS) for chambers of commerce and member
+    organizations (it also operates ChamberMaster and MemberZone). Its API is a
+    standard REST/JSON service, one instance per customer database at
+    https://{subdomain}.growthzoneapp.com/api (some databases at
+    app.memberzone.org). Access is customer/partner-gated: an account must have
+    API Access enabled and an API Key issued by GrowthZone WebSupport; if the
+    account lacks API Access the Engagement team provides a quote. Authentication
+    is Server (API Key header) or User (OAuth 2.0 / OpenID Connect). No realtime,
+    bidirectional, or streaming WebSocket (ws:// or wss://) endpoint is documented
+    anywhere in GrowthZone's integration documentation or Curated API reference as
+    of the review date.
+  gated: |
+    The API is documented publicly (integration.growthzone.com,
+    documentation.growthzoneapp.com) but usage is gated behind an issued API Key
+    and an eligible subscription. Endpoint paths in this entry that appear in the
+    public Curated API / integration docs are marked Confirmed; a small number of
+    CRUD-completion and event paths are honestly marked Modeled because the full
+    reference sits behind the gate and the events feed derives from the legacy
+    ChamberMaster/MicroNet API.
+  transports:
+    - protocol: REST
+      scheme: https
+      baseURL: https://{subdomain}.growthzoneapp.com/api
+      documented: true
+      note: Primary GrowthZone REST API, one instance per customer database. API Key header auth.
+    - protocol: REST
+      scheme: https
+      baseURL: https://app.memberzone.org/api
+      documented: true
+      note: MemberZone-hosted GrowthZone databases; same REST surface.
+    - protocol: OAuth2 / OpenID Connect
+      scheme: https
+      baseURL: https://growthzoneapp.com/oauth
+      documented: true
+      note: authorize / token / userinfo plus JWKS for user SSO. Request/response HTTP, not a socket.
+    - protocol: REST / OData
+      scheme: https
+      baseURL: https://api.micronetonline.com/v1
+      documented: true
+      note: Legacy ChamberMaster/MemberZone (MicroNet) API - members and events feeds, OData filtering.
+    - protocol: WebSocket
+      scheme: wss
+      documented: false
+      note: No WebSocket endpoint is documented anywhere in GrowthZone's API docs as of the review date.
+  endpointsConfirmedRest:
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/delta
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/person/{contactId}
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/PersonSummary/{contactId}
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/OrgGeneral/{contactId}
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/ContactAddresses/{contactId}
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/PrimaryContact/Emails/{primaryContactId}
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/lookup/{contactId}/contactwebsites
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/{contactId}/NotesAndFields
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/person/{contactId}/categorySummary
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/person/{contactId}/memberships
+    - GET  https://{subdomain}.growthzoneapp.com/api/contacts/org/{contactId}/groups
+    - GET  https://{subdomain}.growthzoneapp.com/api/memberships/types
+    - POST https://{subdomain}.growthzoneapp.com/api/memberships/all
+    - POST https://{subdomain}.growthzoneapp.com/api/GroupsApi_GetGroupsByCategories
+    - POST https://{subdomain}.growthzoneapp.com/api/certifications/{certificationContactId}/Components/{certificationComponentId}/Completed
+    - POST https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/items
+    - POST https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/items/export
+    - POST https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/items/run/setup
+    - POST https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/items/run
+    - GET  https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/run/history
+    - POST https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/run/history/download/{systemjobid}
+  endpointsModeledRest:
+    - GET  https://{subdomain}.growthzoneapp.com/api/groups/{groupId}/members
+    - GET  https://{subdomain}.growthzoneapp.com/api/events
+    - GET  https://{subdomain}.growthzoneapp.com/api/events/{eventId}
+sources:
+  - url: https://integration.growthzone.com/growthzone-api/
+    type: Documentation
+    note: API overview - base URL format, ApiKey header auth, common endpoints (contacts, memberships/types, memberships/all).
+  - url: https://documentation.growthzoneapp.com/CuratedApi.html
+    type: APIReference
+    note: Curated API reference - confirmed contacts, groups, memberships, and certifications endpoints.
+  - url: https://documentation.growthzoneapp.com/ScheduledBilling.html
+    type: APIReference
+    note: Scheduled billing endpoints (preview/export/setup/run/history/download).
+  - url: https://integration.growthzone.com/growthzone-oauth-documentation/
+    type: Documentation
+    note: OAuth 2.0 / OpenID Connect - authorize, token, userinfo, JWKS; openid/profile/email scopes.
+  - url: https://integration.growthzone.com/chambermaster-or-memberzone-api-documentation/
+    type: Documentation
+    note: Legacy ChamberMaster/MemberZone (MicroNet) members and events feeds with OData filtering.
+  - url: https://helpdesk.growthzone.com/kb/article/33-growthzone-api-key-authentication/
+    type: Documentation
+    note: API Key authentication and how access is requested from WebSupport (gated, quote if not enabled).
+actions:
+  asyncapiPath: null
+  apisYmlUpdated: true
+  reason: |
+    No WebSocket protocol surface exists. GrowthZone's public API is
+    request/response REST (with OAuth/OIDC for SSO), gated behind an issued API
+    Key. No AsyncAPI document was created because there is no server-push
+    transport on GrowthZone's own API to model; near-real-time syncing is done by
+    polling the REST delta feed rather than over a socket.

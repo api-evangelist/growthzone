@@ -1,0 +1,59 @@
+specification: API Commons Rate Limits
+specificationVersion: '0.1'
+schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
+provider: GrowthZone
+providerId: growthzone
+created: '2026-07-05'
+modified: '2026-07-05'
+reconciled: false
+tags:
+- Association Management
+- AMS
+- Membership Management
+- Rate Limiting
+- Quotas
+description: >-
+  GrowthZone does not publish fixed numeric rate limits for its REST API in the
+  public integration documentation. The API is per-customer-database and gated
+  behind an issued API Key, so throughput is governed operationally per account
+  rather than by an advertised per-minute request cap. Read endpoints are paged
+  (responses carry TotalRecordAvailable and a Results array) and callers are
+  expected to page rather than pull everything at once. For bulk synchronization,
+  GrowthZone provides a delta feed (GET /api/contacts/delta) so integrations can
+  fetch only changed records instead of repeatedly scanning the full dataset.
+notes: >-
+  No numeric per-account or per-endpoint limits are documented as of the review
+  date. Confirm any enforced limits, paging maximums, and acceptable polling
+  cadence with GrowthZone WebSupport when your API Key is issued.
+sources:
+- https://integration.growthzone.com/growthzone-api/
+- https://documentation.growthzoneapp.com/CuratedApi.html
+- https://helpdesk.growthzone.com/kb/article/33-growthzone-api-key-authentication/
+responseCodes:
+  throttled: 429
+limits:
+- name: REST API Requests
+  scope: account
+  metric: requests
+  limit: not published
+  notes: No fixed numeric request-rate limit is documented for the GrowthZone REST API.
+- name: Result Paging
+  scope: endpoint
+  metric: records
+  limit: paged
+  notes: List endpoints return TotalRecordAvailable plus a paged Results array; page through large sets.
+- name: Delta Sync
+  scope: account
+  metric: requests
+  limit: recommended
+  notes: Use GET /api/contacts/delta to sync only changed contacts instead of polling full lists.
+policies:
+- name: API Key Required
+  description: Every request must send Authorization; ApiKey {API_Key}. Keys are issued per application and can be revoked.
+- name: Pagination
+  description: Prefer paged reads and reasonable page sizes over unbounded pulls of the full database.
+- name: Backoff Strategy
+  description: Clients should implement exponential backoff with jitter and honor Retry-After on 429 responses.
+maintainers:
+- FN: Kin Lane
+  email: kin@apievangelist.com

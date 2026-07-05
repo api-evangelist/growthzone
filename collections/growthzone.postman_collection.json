@@ -1,0 +1,284 @@
+{
+  "info": {
+    "name": "GrowthZone REST API",
+    "description": "Programmatic access to a GrowthZone association management (AMS) database - contacts (members and organizations), memberships, groups/directory, scheduled billing, certifications, and events. Base URL: https://{{subdomain}}.growthzoneapp.com/api (some databases are served from app.memberzone.org). The API is customer/partner-gated: your account must have API Access enabled and an API Key issued by GrowthZone WebSupport. Authenticate with an 'Authorization: ApiKey {{apiKey}}' header. Requests marked (Modeled) are inferred; verify against the gated full reference.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "subdomain", "value": "app", "type": "string" },
+    { "key": "baseUrl", "value": "https://{{subdomain}}.growthzoneapp.com/api", "type": "string" },
+    { "key": "apiKey", "value": "", "type": "string" }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      { "key": "key", "value": "Authorization", "type": "string" },
+      { "key": "value", "value": "ApiKey {{apiKey}}", "type": "string" },
+      { "key": "in", "value": "header", "type": "string" }
+    ]
+  },
+  "item": [
+    {
+      "name": "Contacts",
+      "item": [
+        {
+          "name": "List contacts (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts?page=1&pageSize=100", "host": ["{{baseUrl}}"], "path": ["contacts"], "query": [{ "key": "page", "value": "1" }, { "key": "pageSize", "value": "100" }] },
+            "description": "Paged list of contacts. Returns TotalRecordAvailable and a Results array."
+          }
+        },
+        {
+          "name": "List changed contacts (delta) (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/delta?since=2026-01-01T00:00:00Z", "host": ["{{baseUrl}}"], "path": ["contacts", "delta"], "query": [{ "key": "since", "value": "2026-01-01T00:00:00Z" }] },
+            "description": "Contacts created or modified since the supplied date."
+          }
+        },
+        {
+          "name": "Get individual (person) (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/person/:contactId", "host": ["{{baseUrl}}"], "path": ["contacts", "person", ":contactId"], "variable": [{ "key": "contactId", "value": "" }] },
+            "description": "Expanded individual contact."
+          }
+        },
+        {
+          "name": "Get person summary (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/PersonSummary/:contactId", "host": ["{{baseUrl}}"], "path": ["contacts", "PersonSummary", ":contactId"], "variable": [{ "key": "contactId", "value": "" }] },
+            "description": "Basic individual contact summary."
+          }
+        },
+        {
+          "name": "Get organization summary (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/OrgGeneral/:contactId", "host": ["{{baseUrl}}"], "path": ["contacts", "OrgGeneral", ":contactId"], "variable": [{ "key": "contactId", "value": "" }] },
+            "description": "Organization contact summary."
+          }
+        },
+        {
+          "name": "Get contact addresses (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/ContactAddresses/:contactId", "host": ["{{baseUrl}}"], "path": ["contacts", "ContactAddresses", ":contactId"], "variable": [{ "key": "contactId", "value": "" }] },
+            "description": "Addresses for the contact."
+          }
+        },
+        {
+          "name": "Get primary contact emails (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/PrimaryContact/Emails/:primaryContactId", "host": ["{{baseUrl}}"], "path": ["contacts", "PrimaryContact", "Emails", ":primaryContactId"], "variable": [{ "key": "primaryContactId", "value": "" }] },
+            "description": "Email addresses for the primary contact."
+          }
+        },
+        {
+          "name": "Get contact websites (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/lookup/:contactId/contactwebsites", "host": ["{{baseUrl}}"], "path": ["contacts", "lookup", ":contactId", "contactwebsites"], "variable": [{ "key": "contactId", "value": "" }] },
+            "description": "Website URLs for the contact."
+          }
+        },
+        {
+          "name": "Get contact notes and custom fields (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/:contactId/NotesAndFields", "host": ["{{baseUrl}}"], "path": ["contacts", ":contactId", "NotesAndFields"], "variable": [{ "key": "contactId", "value": "" }] },
+            "description": "Notes and custom field values for the contact."
+          }
+        },
+        {
+          "name": "Get person category summary (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/person/:contactId/categorySummary", "host": ["{{baseUrl}}"], "path": ["contacts", "person", ":contactId", "categorySummary"], "variable": [{ "key": "contactId", "value": "" }] },
+            "description": "Category summary for an individual."
+          }
+        },
+        {
+          "name": "Get person memberships (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/person/:contactId/memberships", "host": ["{{baseUrl}}"], "path": ["contacts", "person", ":contactId", "memberships"], "variable": [{ "key": "contactId", "value": "" }] },
+            "description": "Memberships held by an individual."
+          }
+        },
+        {
+          "name": "Get organization groups (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/contacts/org/:contactId/groups", "host": ["{{baseUrl}}"], "path": ["contacts", "org", ":contactId", "groups"], "variable": [{ "key": "contactId", "value": "" }] },
+            "description": "Groups an organization belongs to."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Memberships",
+      "item": [
+        {
+          "name": "List membership types (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/memberships/types?page=1&pageSize=100", "host": ["{{baseUrl}}"], "path": ["memberships", "types"], "query": [{ "key": "page", "value": "1" }, { "key": "pageSize", "value": "100" }] },
+            "description": "All membership types, paged."
+          }
+        },
+        {
+          "name": "List all memberships (Confirmed)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"MembershipTypeId\": null,\n  \"MembershipStatusTypeId\": 2,\n  \"Page\": 1,\n  \"PageSize\": 100\n}" },
+            "url": { "raw": "{{baseUrl}}/memberships/all", "host": ["{{baseUrl}}"], "path": ["memberships", "all"] },
+            "description": "All memberships filtered by type/status (2 = Active). Returns TotalRecordAvailable and Results."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Groups & Directory",
+      "item": [
+        {
+          "name": "Get groups by categories (Confirmed)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"CategoryIds\": [1, 2, 3]\n}" },
+            "url": { "raw": "{{baseUrl}}/GroupsApi_GetGroupsByCategories", "host": ["{{baseUrl}}"], "path": ["GroupsApi_GetGroupsByCategories"] },
+            "description": "Resolves groups for one or more categories."
+          }
+        },
+        {
+          "name": "List group members (Modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/groups/:groupId/members", "host": ["{{baseUrl}}"], "path": ["groups", ":groupId", "members"], "variable": [{ "key": "groupId", "value": "" }] },
+            "description": "Modeled. Member contacts belonging to a group."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Certifications",
+      "item": [
+        {
+          "name": "Mark certification component completed (Confirmed)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{}" },
+            "url": { "raw": "{{baseUrl}}/certifications/:certificationContactId/Components/:certificationComponentId/Completed", "host": ["{{baseUrl}}"], "path": ["certifications", ":certificationContactId", "Components", ":certificationComponentId", "Completed"], "variable": [{ "key": "certificationContactId", "value": "" }, { "key": "certificationComponentId", "value": "" }] },
+            "description": "Marks a certification component complete for a contact."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Scheduled Billing",
+      "item": [
+        {
+          "name": "Preview scheduled billing items (Confirmed)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"MembershipTypeId\": 1,\n  \"BillingDate\": \"2026-08-01\"\n}" },
+            "url": { "raw": "{{baseUrl}}/scheduledbilling/membershiptype/items", "host": ["{{baseUrl}}"], "path": ["scheduledbilling", "membershiptype", "items"] },
+            "description": "Preview items that would be billed for a membership type."
+          }
+        },
+        {
+          "name": "Export scheduled billing items (Confirmed)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"MembershipTypeId\": 1,\n  \"BillingDate\": \"2026-08-01\"\n}" },
+            "url": { "raw": "{{baseUrl}}/scheduledbilling/membershiptype/items/export", "host": ["{{baseUrl}}"], "path": ["scheduledbilling", "membershiptype", "items", "export"] },
+            "description": "Export the billing items."
+          }
+        },
+        {
+          "name": "Set up scheduled billing run (Confirmed)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"MembershipTypeId\": 1,\n  \"BillingDate\": \"2026-08-01\"\n}" },
+            "url": { "raw": "{{baseUrl}}/scheduledbilling/membershiptype/items/run/setup", "host": ["{{baseUrl}}"], "path": ["scheduledbilling", "membershiptype", "items", "run", "setup"] },
+            "description": "Configure a scheduled billing run."
+          }
+        },
+        {
+          "name": "Run scheduled billing (Confirmed)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": { "mode": "raw", "raw": "{\n  \"MembershipTypeId\": 1,\n  \"BillingDate\": \"2026-08-01\"\n}" },
+            "url": { "raw": "{{baseUrl}}/scheduledbilling/membershiptype/items/run", "host": ["{{baseUrl}}"], "path": ["scheduledbilling", "membershiptype", "items", "run"] },
+            "description": "Run scheduled billing; returns a SystemJobId."
+          }
+        },
+        {
+          "name": "List billing run history (Confirmed)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/scheduledbilling/membershiptype/run/history", "host": ["{{baseUrl}}"], "path": ["scheduledbilling", "membershiptype", "run", "history"] },
+            "description": "History of past scheduled billing runs."
+          }
+        },
+        {
+          "name": "Download billing run (Confirmed)",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/scheduledbilling/membershiptype/run/history/download/:systemjobid", "host": ["{{baseUrl}}"], "path": ["scheduledbilling", "membershiptype", "run", "history", "download", ":systemjobid"], "variable": [{ "key": "systemjobid", "value": "" }] },
+            "description": "Download a billing run result by system job id."
+          }
+        }
+      ]
+    },
+    {
+      "name": "Events",
+      "item": [
+        {
+          "name": "List events (Modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/events?startDate=2026-08-01&endDate=2026-08-31", "host": ["{{baseUrl}}"], "path": ["events"], "query": [{ "key": "startDate", "value": "2026-08-01" }, { "key": "endDate", "value": "2026-08-31" }] },
+            "description": "Modeled from the ChamberMaster/MemberZone event feed. Events by date range and status."
+          }
+        },
+        {
+          "name": "Get event details (Modeled)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": { "raw": "{{baseUrl}}/events/:eventId", "host": ["{{baseUrl}}"], "path": ["events", ":eventId"], "variable": [{ "key": "eventId", "value": "" }] },
+            "description": "Modeled. Details for a single event."
+          }
+        }
+      ]
+    }
+  ]
+}
