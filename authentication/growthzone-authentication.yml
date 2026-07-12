@@ -1,0 +1,18 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/growthzone-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKeyAuth
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: 'Server authentication. Send `Authorization: ApiKey {API_Key}` where the API
+    Key is issued per application by GrowthZone WebSupport. OAuth 2.0 / OpenID Connect (authorize/token/userinfo
+    at growthzoneapp.com) is used for user SSO flows.'
+  sources:
+  - openapi/growthzone-openapi.yml
