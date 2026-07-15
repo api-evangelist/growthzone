@@ -176,6 +176,8 @@ apis:
     endpoints supporting authorization-code, implicit, and hybrid flows with the openid, profile,
     and email scopes. Lets a website or app authenticate members against their GrowthZone identity.
 common:
+- type: AgenticAccess
+  url: agentic-access/growthzone-agentic-access.yml
 - type: DomainSecurity
   url: security/growthzone-domain-security.yml
 - type: Authentication
