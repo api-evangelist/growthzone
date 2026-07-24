@@ -1,0 +1,134 @@
+openapi: 3.0.3
+info:
+  title: GrowthZone REST Certifications Events API
+  description: 'Programmatic access to a GrowthZone association management (AMS) database - contacts (members and organizations), memberships, groups and directories, scheduled billing, certifications, and events. GrowthZone is a REST-based, JSON API served per customer database at https://{subdomain}.growthzoneapp.com/api, where {subdomain} is the customer database sub-domain visible in the application URL (some databases are served from app.memberzone.org). The API is customer/partner-gated: an account must have API Access enabled, and an API Key is issued by GrowthZone WebSupport (websupport@growthzone.com). Authenticate by sending an `Authorization: ApiKey {API_Key}` header (Server authentication); OAuth 2.0 / OpenID Connect is also supported for user (SSO) flows.
+
+
+    Endpoint status: paths marked "Confirmed" appear in GrowthZone''s public integration documentation and Curated API reference. Paths marked "Modeled" are honestly inferred to round out standard CRUD or reflect the ChamberMaster/MemberZone (MicroNet) event feed; verify exact shapes against the gated full reference at documentation.growthzoneapp.com.'
+  version: '1.0'
+  contact:
+    name: GrowthZone WebSupport
+    url: https://integration.growthzone.com
+    email: websupport@growthzone.com
+  license:
+    name: Proprietary
+    url: https://www.growthzone.com
+servers:
+- url: https://{subdomain}.growthzoneapp.com/api
+  description: GrowthZone customer database (replace {subdomain} with your database sub-domain)
+  variables:
+    subdomain:
+      default: app
+      description: The customer database sub-domain from your GrowthZone application URL.
+- url: https://app.memberzone.org/api
+  description: MemberZone-hosted GrowthZone databases
+security:
+- apiKeyAuth: []
+tags:
+- name: Events
+  description: Association event calendar and registration (modeled).
+paths:
+  /events:
+    get:
+      operationId: listEvents
+      tags:
+      - Events
+      summary: List events by date range and status (Modeled)
+      description: Modeled from the GrowthZone ChamberMaster/MemberZone event feed (legacy base api.micronetonline.com/v1/associations({id})/events/details). Returns events filtered by date range and status for calendar embeds.
+      parameters:
+      - name: startDate
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: endDate
+        in: query
+        schema:
+          type: string
+          format: date
+      - name: status
+        in: query
+        schema:
+          type: string
+      responses:
+        '200':
+          description: A list of events.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /events/{eventId}:
+    get:
+      operationId: getEvent
+      tags:
+      - Events
+      summary: Get event details (Modeled)
+      parameters:
+      - name: eventId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Event details.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Event'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Event:
+      type: object
+      properties:
+        EventId:
+          type: string
+        Name:
+          type: string
+        StartDateTime:
+          type: string
+          format: date-time
+        EndDateTime:
+          type: string
+          format: date-time
+        Location:
+          type: string
+        Status:
+          type: string
+        RegistrationUrl:
+          type: string
+          format: uri
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
+          type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Server authentication. Send `Authorization: ApiKey {API_Key}` where the API Key is issued per application by GrowthZone WebSupport. OAuth 2.0 / OpenID Connect (authorize/token/userinfo at growthzoneapp.com) is used for user SSO flows.'

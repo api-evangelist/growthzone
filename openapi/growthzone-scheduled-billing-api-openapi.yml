@@ -1,0 +1,191 @@
+openapi: 3.0.3
+info:
+  title: GrowthZone REST Certifications Scheduled Billing API
+  description: 'Programmatic access to a GrowthZone association management (AMS) database - contacts (members and organizations), memberships, groups and directories, scheduled billing, certifications, and events. GrowthZone is a REST-based, JSON API served per customer database at https://{subdomain}.growthzoneapp.com/api, where {subdomain} is the customer database sub-domain visible in the application URL (some databases are served from app.memberzone.org). The API is customer/partner-gated: an account must have API Access enabled, and an API Key is issued by GrowthZone WebSupport (websupport@growthzone.com). Authenticate by sending an `Authorization: ApiKey {API_Key}` header (Server authentication); OAuth 2.0 / OpenID Connect is also supported for user (SSO) flows.
+
+
+    Endpoint status: paths marked "Confirmed" appear in GrowthZone''s public integration documentation and Curated API reference. Paths marked "Modeled" are honestly inferred to round out standard CRUD or reflect the ChamberMaster/MemberZone (MicroNet) event feed; verify exact shapes against the gated full reference at documentation.growthzoneapp.com.'
+  version: '1.0'
+  contact:
+    name: GrowthZone WebSupport
+    url: https://integration.growthzone.com
+    email: websupport@growthzone.com
+  license:
+    name: Proprietary
+    url: https://www.growthzone.com
+servers:
+- url: https://{subdomain}.growthzoneapp.com/api
+  description: GrowthZone customer database (replace {subdomain} with your database sub-domain)
+  variables:
+    subdomain:
+      default: app
+      description: The customer database sub-domain from your GrowthZone application URL.
+- url: https://app.memberzone.org/api
+  description: MemberZone-hosted GrowthZone databases
+security:
+- apiKeyAuth: []
+tags:
+- name: Scheduled Billing
+  description: Recurring membership billing runs by membership type.
+paths:
+  /scheduledbilling/membershiptype/items:
+    post:
+      operationId: previewScheduledBillingItems
+      tags:
+      - Scheduled Billing
+      summary: Preview scheduled billing items by membership type (Confirmed)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduledBillingRequest'
+      responses:
+        '200':
+          description: Preview of items that would be billed.
+          content:
+            application/json:
+              schema:
+                type: object
+                additionalProperties: true
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduledbilling/membershiptype/items/export:
+    post:
+      operationId: exportScheduledBillingItems
+      tags:
+      - Scheduled Billing
+      summary: Export scheduled billing items (Confirmed)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduledBillingRequest'
+      responses:
+        '200':
+          description: Exported billing items.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduledbilling/membershiptype/items/run/setup:
+    post:
+      operationId: setupScheduledBillingRun
+      tags:
+      - Scheduled Billing
+      summary: Set up a scheduled billing run (Confirmed)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduledBillingRequest'
+      responses:
+        '200':
+          description: Billing run configured.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduledbilling/membershiptype/items/run:
+    post:
+      operationId: runScheduledBilling
+      tags:
+      - Scheduled Billing
+      summary: Run scheduled billing for a membership type (Confirmed)
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ScheduledBillingRequest'
+      responses:
+        '200':
+          description: Billing run started; returns a system job identifier.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  SystemJobId:
+                    type: string
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduledbilling/membershiptype/run/history:
+    get:
+      operationId: listScheduledBillingRunHistory
+      tags:
+      - Scheduled Billing
+      summary: List scheduled billing run history (Confirmed)
+      responses:
+        '200':
+          description: History of past scheduled billing runs.
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BillingRun'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /scheduledbilling/membershiptype/run/history/download/{systemjobid}:
+    post:
+      operationId: downloadScheduledBillingRun
+      tags:
+      - Scheduled Billing
+      summary: Download a scheduled billing run result (Confirmed)
+      parameters:
+      - name: systemjobid
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The billing run result file.
+          content:
+            application/octet-stream:
+              schema:
+                type: string
+                format: binary
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    BillingRun:
+      type: object
+      properties:
+        SystemJobId:
+          type: string
+        RunDate:
+          type: string
+          format: date-time
+        Status:
+          type: string
+        RecordCount:
+          type: integer
+    ScheduledBillingRequest:
+      type: object
+      properties:
+        MembershipTypeId:
+          type: integer
+        BillingDate:
+          type: string
+          format: date
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Server authentication. Send `Authorization: ApiKey {API_Key}` where the API Key is issued per application by GrowthZone WebSupport. OAuth 2.0 / OpenID Connect (authorize/token/userinfo at growthzoneapp.com) is used for user SSO flows.'

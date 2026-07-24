@@ -1,0 +1,82 @@
+openapi: 3.0.3
+info:
+  title: GrowthZone REST Certifications API
+  description: 'Programmatic access to a GrowthZone association management (AMS) database - contacts (members and organizations), memberships, groups and directories, scheduled billing, certifications, and events. GrowthZone is a REST-based, JSON API served per customer database at https://{subdomain}.growthzoneapp.com/api, where {subdomain} is the customer database sub-domain visible in the application URL (some databases are served from app.memberzone.org). The API is customer/partner-gated: an account must have API Access enabled, and an API Key is issued by GrowthZone WebSupport (websupport@growthzone.com). Authenticate by sending an `Authorization: ApiKey {API_Key}` header (Server authentication); OAuth 2.0 / OpenID Connect is also supported for user (SSO) flows.
+
+
+    Endpoint status: paths marked "Confirmed" appear in GrowthZone''s public integration documentation and Curated API reference. Paths marked "Modeled" are honestly inferred to round out standard CRUD or reflect the ChamberMaster/MemberZone (MicroNet) event feed; verify exact shapes against the gated full reference at documentation.growthzoneapp.com.'
+  version: '1.0'
+  contact:
+    name: GrowthZone WebSupport
+    url: https://integration.growthzone.com
+    email: websupport@growthzone.com
+  license:
+    name: Proprietary
+    url: https://www.growthzone.com
+servers:
+- url: https://{subdomain}.growthzoneapp.com/api
+  description: GrowthZone customer database (replace {subdomain} with your database sub-domain)
+  variables:
+    subdomain:
+      default: app
+      description: The customer database sub-domain from your GrowthZone application URL.
+- url: https://app.memberzone.org/api
+  description: MemberZone-hosted GrowthZone databases
+security:
+- apiKeyAuth: []
+tags:
+- name: Certifications
+  description: Certification tracks and component completion.
+paths:
+  /certifications/{certificationContactId}/Components/{certificationComponentId}/Completed:
+    post:
+      operationId: markCertificationComponentCompleted
+      tags:
+      - Certifications
+      summary: Mark a certification component completed (Confirmed)
+      parameters:
+      - name: certificationContactId
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: certificationComponentId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The component was marked complete.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
+          type: string
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Server authentication. Send `Authorization: ApiKey {API_Key}` where the API Key is issued per application by GrowthZone WebSupport. OAuth 2.0 / OpenID Connect (authorize/token/userinfo at growthzoneapp.com) is used for user SSO flows.'

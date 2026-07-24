@@ -1,0 +1,159 @@
+openapi: 3.0.3
+info:
+  title: GrowthZone REST Certifications Memberships API
+  description: 'Programmatic access to a GrowthZone association management (AMS) database - contacts (members and organizations), memberships, groups and directories, scheduled billing, certifications, and events. GrowthZone is a REST-based, JSON API served per customer database at https://{subdomain}.growthzoneapp.com/api, where {subdomain} is the customer database sub-domain visible in the application URL (some databases are served from app.memberzone.org). The API is customer/partner-gated: an account must have API Access enabled, and an API Key is issued by GrowthZone WebSupport (websupport@growthzone.com). Authenticate by sending an `Authorization: ApiKey {API_Key}` header (Server authentication); OAuth 2.0 / OpenID Connect is also supported for user (SSO) flows.
+
+
+    Endpoint status: paths marked "Confirmed" appear in GrowthZone''s public integration documentation and Curated API reference. Paths marked "Modeled" are honestly inferred to round out standard CRUD or reflect the ChamberMaster/MemberZone (MicroNet) event feed; verify exact shapes against the gated full reference at documentation.growthzoneapp.com.'
+  version: '1.0'
+  contact:
+    name: GrowthZone WebSupport
+    url: https://integration.growthzone.com
+    email: websupport@growthzone.com
+  license:
+    name: Proprietary
+    url: https://www.growthzone.com
+servers:
+- url: https://{subdomain}.growthzoneapp.com/api
+  description: GrowthZone customer database (replace {subdomain} with your database sub-domain)
+  variables:
+    subdomain:
+      default: app
+      description: The customer database sub-domain from your GrowthZone application URL.
+- url: https://app.memberzone.org/api
+  description: MemberZone-hosted GrowthZone databases
+security:
+- apiKeyAuth: []
+tags:
+- name: Memberships
+  description: Membership types and member rosters.
+paths:
+  /memberships/types:
+    get:
+      operationId: listMembershipTypes
+      tags:
+      - Memberships
+      summary: List membership types (Confirmed)
+      description: Returns all membership types, paged.
+      parameters:
+      - $ref: '#/components/parameters/Page'
+      - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          description: A paged list of membership types.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  TotalRecordAvailable:
+                    type: integer
+                  Results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/MembershipType'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+  /memberships/all:
+    post:
+      operationId: listAllMemberships
+      tags:
+      - Memberships
+      summary: List all memberships, filtered by type/status (Confirmed)
+      description: Returns memberships across the database, optionally filtered by membership type and status. Accepts a JSON body of filter criteria and returns TotalRecordAvailable plus a paged Results array.
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/MembershipQuery'
+      responses:
+        '200':
+          description: A paged list of memberships.
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  TotalRecordAvailable:
+                    type: integer
+                  Results:
+                    type: array
+                    items:
+                      $ref: '#/components/schemas/Membership'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+components:
+  schemas:
+    MembershipQuery:
+      type: object
+      properties:
+        MembershipTypeId:
+          type: integer
+        MembershipStatusTypeId:
+          type: integer
+        Page:
+          type: integer
+        PageSize:
+          type: integer
+    MembershipType:
+      type: object
+      properties:
+        MembershipTypeId:
+          type: integer
+        Name:
+          type: string
+        IsActive:
+          type: boolean
+    Membership:
+      type: object
+      properties:
+        MembershipId:
+          type: string
+        ContactId:
+          type: string
+        MembershipTypeId:
+          type: integer
+        Status:
+          type: string
+        JoinDate:
+          type: string
+          format: date
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
+          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  parameters:
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 500
+        default: 100
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+  securitySchemes:
+    apiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: 'Server authentication. Send `Authorization: ApiKey {API_Key}` where the API Key is issued per application by GrowthZone WebSupport. OAuth 2.0 / OpenID Connect (authorize/token/userinfo at growthzoneapp.com) is used for user SSO flows.'
