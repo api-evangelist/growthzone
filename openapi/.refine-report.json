@@ -1,0 +1,24 @@
+{
+  "provider": "growthzone",
+  "sources": [
+    "growthzone-certifications-api-openapi.yml",
+    "growthzone-contacts-api-openapi.yml",
+    "growthzone-events-api-openapi.yml",
+    "growthzone-groups-directory-api-openapi.yml",
+    "growthzone-memberships-api-openapi.yml",
+    "growthzone-scheduled-billing-api-openapi.yml"
+  ],
+  "outputs": [
+    "growthzone-certifications-api-openapi.yml",
+    "growthzone-contacts-api-openapi.yml",
+    "growthzone-events-api-openapi.yml",
+    "growthzone-groups-directory-api-openapi.yml",
+    "growthzone-memberships-api-openapi.yml",
+    "growthzone-scheduled-billing-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
