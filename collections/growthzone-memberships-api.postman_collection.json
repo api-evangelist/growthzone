@@ -1,0 +1,406 @@
+{
+  "item": [
+    {
+      "id": "76dd6dfc-75f1-43dc-9661-b097faa9fb64",
+      "name": "Memberships",
+      "description": {
+        "content": "Membership types and member rosters.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "331e3b15-e83a-495a-bc4b-f3947bce6bd6",
+          "name": "List membership types (Confirmed)",
+          "request": {
+            "name": "List membership types (Confirmed)",
+            "description": {
+              "content": "Returns all membership types, paged.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "memberships",
+                "types"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "page",
+                  "value": "1"
+                },
+                {
+                  "disabled": false,
+                  "key": "pageSize",
+                  "value": "100"
+                }
+              ],
+              "variable": [
+                {
+                  "description": "The customer database sub-domain from your GrowthZone application URL.",
+                  "type": "any",
+                  "value": "{{subdomain}}",
+                  "key": "subdomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "6728a168-9c56-44ef-96b0-bdda194861b7",
+              "name": "A paged list of membership types.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "memberships",
+                    "types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The customer database sub-domain from your GrowthZone application URL.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TotalRecordAvailable\": 2886,\n  \"Results\": [\n    {\n      \"MembershipTypeId\": 9520,\n      \"Name\": \"string\",\n      \"IsActive\": false\n    },\n    {\n      \"MembershipTypeId\": 2150,\n      \"Name\": \"string\",\n      \"IsActive\": true\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f4ecf09b-36a4-4482-825e-833697602072",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "memberships",
+                    "types"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "page",
+                      "value": "1"
+                    },
+                    {
+                      "key": "pageSize",
+                      "value": "100"
+                    }
+                  ],
+                  "variable": [
+                    {
+                      "description": "The customer database sub-domain from your GrowthZone application URL.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "459ed869-3144-4906-867d-5bf29cafd12e",
+          "name": "List all memberships, filtered by type/status (Confirmed)",
+          "request": {
+            "name": "List all memberships, filtered by type/status (Confirmed)",
+            "description": {
+              "content": "Returns memberships across the database, optionally filtered by membership type and status. Accepts a JSON body of filter criteria and returns TotalRecordAvailable plus a paged Results array.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "memberships",
+                "all"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "description": "The customer database sub-domain from your GrowthZone application URL.",
+                  "type": "any",
+                  "value": "{{subdomain}}",
+                  "key": "subdomain"
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"MembershipTypeId\": \"<integer>\",\n  \"MembershipStatusTypeId\": \"<integer>\",\n  \"Page\": \"<integer>\",\n  \"PageSize\": \"<integer>\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "ed1ff984-90b2-4d28-9377-947daff1c04c",
+              "name": "A paged list of memberships.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "memberships",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The customer database sub-domain from your GrowthZone application URL.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MembershipTypeId\": \"<integer>\",\n  \"MembershipStatusTypeId\": \"<integer>\",\n  \"Page\": \"<integer>\",\n  \"PageSize\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"TotalRecordAvailable\": 5152,\n  \"Results\": [\n    {\n      \"MembershipId\": \"string\",\n      \"ContactId\": \"string\",\n      \"MembershipTypeId\": 7434,\n      \"Status\": \"string\",\n      \"JoinDate\": \"1951-08-16\"\n    },\n    {\n      \"MembershipId\": \"string\",\n      \"ContactId\": \"string\",\n      \"MembershipTypeId\": 3130,\n      \"Status\": \"string\",\n      \"JoinDate\": \"2016-01-08\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "52a14dfb-96fe-4cfc-8c52-e195420b44ba",
+              "name": "Missing or invalid API key.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "memberships",
+                    "all"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "description": "The customer database sub-domain from your GrowthZone application URL.",
+                      "type": "any",
+                      "value": "{{subdomain}}",
+                      "key": "subdomain"
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"MembershipTypeId\": \"<integer>\",\n  \"MembershipStatusTypeId\": \"<integer>\",\n  \"Page\": \"<integer>\",\n  \"PageSize\": \"<integer>\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"Message\": \"string\",\n  \"Code\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "description": {
+        "content": "The customer database sub-domain from your GrowthZone application URL.",
+        "type": "text/plain"
+      },
+      "type": "any",
+      "value": "app",
+      "key": "subdomain"
+    },
+    {
+      "type": "string",
+      "value": "https://{{subdomain}}.growthzoneapp.com/api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "f67eb235-c16a-4236-87a0-e6ae85cd35a6",
+    "name": "GrowthZone REST Certifications Memberships API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "Programmatic access to a GrowthZone association management (AMS) database - contacts (members and organizations), memberships, groups and directories, scheduled billing, certifications, and events. GrowthZone is a REST-based, JSON API served per customer database at https://{subdomain}.growthzoneapp.com/api, where {subdomain} is the customer database sub-domain visible in the application URL (some databases are served from app.memberzone.org). The API is customer/partner-gated: an account must have API Access enabled, and an API Key is issued by GrowthZone WebSupport (websupport@growthzone.com). Authenticate by sending an `Authorization: ApiKey {API_Key}` header (Server authentication); OAuth 2.0 / OpenID Connect is also supported for user (SSO) flows.\n\nEndpoint status: paths marked \"Confirmed\" appear in GrowthZone's public integration documentation and Curated API reference. Paths marked \"Modeled\" are honestly inferred to round out standard CRUD or reflect the ChamberMaster/MemberZone (MicroNet) event feed; verify exact shapes against the gated full reference at documentation.growthzoneapp.com.\n\nContact Support:\n Name: GrowthZone WebSupport\n Email: websupport@growthzone.com",
+      "type": "text/plain"
+    }
+  }
+}

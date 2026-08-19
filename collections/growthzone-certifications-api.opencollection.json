@@ -1,0 +1,49 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GrowthZone REST Certifications API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Certifications",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Mark a certification component completed (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.growthzoneapp.com/api/certifications/:certificationContactId/Components/:certificationComponentId/Completed",
+            "params": [
+              {
+                "name": "certificationContactId",
+                "value": "",
+                "type": "path"
+              },
+              {
+                "name": "certificationComponentId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Mark a certification component completed (Confirmed)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

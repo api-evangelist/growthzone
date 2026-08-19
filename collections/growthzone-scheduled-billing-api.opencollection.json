@@ -1,0 +1,115 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GrowthZone REST Certifications Scheduled Billing API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Scheduled Billing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Preview scheduled billing items by membership type (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/items",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Preview scheduled billing items by membership type (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Export scheduled billing items (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/items/export",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Export scheduled billing items (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Set up a scheduled billing run (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/items/run/setup",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Set up a scheduled billing run (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Run scheduled billing for a membership type (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/items/run",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Run scheduled billing for a membership type (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "List scheduled billing run history (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/run/history"
+          },
+          "docs": "List scheduled billing run history (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Download a scheduled billing run result (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.growthzoneapp.com/api/scheduledbilling/membershiptype/run/history/download/:systemjobid",
+            "params": [
+              {
+                "name": "systemjobid",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Download a scheduled billing run result (Confirmed)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

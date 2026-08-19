@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GrowthZone REST Certifications Groups & Directory API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Groups & Directory",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get groups by categories (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://{subdomain}.growthzoneapp.com/api/GroupsApi_GetGroupsByCategories",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Resolves groups for one or more categories to build a filtered directory."
+        },
+        {
+          "info": {
+            "name": "List members of a group (Modeled)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/groups/:groupId/members",
+            "params": [
+              {
+                "name": "groupId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Modeled. Lists the member contacts belonging to a group, for directory rendering. Exact path and shape are behind the gated reference."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

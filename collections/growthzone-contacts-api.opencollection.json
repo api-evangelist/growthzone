@@ -1,0 +1,257 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "GrowthZone REST Certifications Contacts API",
+    "version": "1.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Contacts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List contacts (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts",
+            "params": [
+              {
+                "name": "page",
+                "value": "",
+                "type": "query"
+              },
+              {
+                "name": "pageSize",
+                "value": "",
+                "type": "query"
+              }
+            ]
+          },
+          "docs": "Returns a paged list of contacts. Responses include TotalRecordAvailable and a Results array of contact records (ContactId, Name, MembershipStatusTypeId, Balance, ImageUrl, ...)."
+        },
+        {
+          "info": {
+            "name": "List contacts changed since a date (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/delta",
+            "params": [
+              {
+                "name": "since",
+                "value": "",
+                "type": "query",
+                "description": "ISO 8601 date/time; return contacts changed at or after this instant."
+              }
+            ]
+          },
+          "docs": "Returns contacts created or modified since the supplied date."
+        },
+        {
+          "info": {
+            "name": "Get expanded individual contact (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/person/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The GrowthZone ContactId (individual or organization)."
+              }
+            ]
+          },
+          "docs": "Get expanded individual contact (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Get basic individual contact summary (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/PersonSummary/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The GrowthZone ContactId (individual or organization)."
+              }
+            ]
+          },
+          "docs": "Get basic individual contact summary (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Get organization contact summary (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/OrgGeneral/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The GrowthZone ContactId (individual or organization)."
+              }
+            ]
+          },
+          "docs": "Get organization contact summary (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Get contact addresses (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/ContactAddresses/:contactId",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The GrowthZone ContactId (individual or organization)."
+              }
+            ]
+          },
+          "docs": "Get contact addresses (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Get primary contact email addresses (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/PrimaryContact/Emails/:primaryContactId",
+            "params": [
+              {
+                "name": "primaryContactId",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Get primary contact email addresses (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Get contact websites (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/lookup/:contactId/contactwebsites",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The GrowthZone ContactId (individual or organization)."
+              }
+            ]
+          },
+          "docs": "Get contact websites (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Get contact notes and custom fields (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/:contactId/NotesAndFields",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The GrowthZone ContactId (individual or organization)."
+              }
+            ]
+          },
+          "docs": "Get contact notes and custom fields (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Get category summary for an individual (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/person/:contactId/categorySummary",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The GrowthZone ContactId (individual or organization)."
+              }
+            ]
+          },
+          "docs": "Get category summary for an individual (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Get memberships for an individual (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/person/:contactId/memberships",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The GrowthZone ContactId (individual or organization)."
+              }
+            ]
+          },
+          "docs": "Get memberships for an individual (Confirmed)"
+        },
+        {
+          "info": {
+            "name": "Get groups for an organization (Confirmed)",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://{subdomain}.growthzoneapp.com/api/contacts/org/:contactId/groups",
+            "params": [
+              {
+                "name": "contactId",
+                "value": "",
+                "type": "path",
+                "description": "The GrowthZone ContactId (individual or organization)."
+              }
+            ]
+          },
+          "docs": "Get groups for an organization (Confirmed)"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
