@@ -33,6 +33,15 @@ tags:
 - Chambers of Commerce
 - ChamberMaster
 - Member Directory
+- Event
+- Billing
+tags_raw:
+- Association Management
+- AMS
+- Membership Management
+- Chambers of Commerce
+- ChamberMaster
+- Member Directory
 - Events
 - Billing
 created: '2026-07-05'
@@ -93,6 +102,8 @@ apis:
   humanURL: https://integration.growthzone.com/growthzone-api/
   baseURL: https://{subdomain}.growthzoneapp.com/api
   tags:
+  - Event
+  tags_raw:
   - Events
   properties:
   - type: OpenAPI
