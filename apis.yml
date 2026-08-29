@@ -12,6 +12,18 @@ description: GrowthZone is association management software (AMS) for chambers of
   WebSupport - and is documented publicly at integration.growthzone.com. GrowthZone also
   operates ChamberMaster and MemberZone, which expose a separate legacy REST API. OAuth 2.0 /
   OpenID Connect is supported for SSO.
+deliveryModel:
+  model: saas
+  open_source: false
+  commercial: true
+  callable_host: true
+  label: Hosted service · you call their endpoint
+  confidence: high
+  source:
+  - openapi
+  - pricing
+  generated: '2026-08-28'
+  method: derived
 accessModel:
   pricing: paid
   onboarding: self-serve
