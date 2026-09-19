@@ -66,6 +66,8 @@ apis:
   humanURL: https://integration.growthzone.com/growthzone-api/
   baseURL: https://{subdomain}.growthzoneapp.com/api
   tags:
+  - Certification
+  tags_raw:
   - Certifications
   properties:
   - type: OpenAPI
@@ -164,6 +166,8 @@ apis:
   humanURL: https://integration.growthzone.com/growthzone-api/
   baseURL: https://{subdomain}.growthzoneapp.com/api
   tags:
+  - Membership
+  tags_raw:
   - Memberships
   properties:
   - type: OpenAPI
