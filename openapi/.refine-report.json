@@ -1,12 +1,7 @@
 {
   "provider": "growthzone",
   "sources": [
-    "growthzone-certifications-api-openapi.yml",
-    "growthzone-contacts-api-openapi.yml",
-    "growthzone-events-api-openapi.yml",
-    "growthzone-groups-directory-api-openapi.yml",
-    "growthzone-memberships-api-openapi.yml",
-    "growthzone-scheduled-billing-api-openapi.yml"
+    "_original/growthzone-openapi.yml"
   ],
   "outputs": [
     "growthzone-certifications-api-openapi.yml",
@@ -19,6 +14,17 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "growthzone-openapi.yml: upgraded openapi 3.0.3 -> OpenAPI 3.2.0",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "growthzone-certifications-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "growthzone-contacts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "growthzone-events-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "growthzone-groups-directory-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "growthzone-memberships-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "growthzone-scheduled-billing-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }
