@@ -83,13 +83,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Code:
-          type: string
     Event:
       type: object
       properties:
@@ -110,6 +103,13 @@ components:
         RegistrationUrl:
           type: string
           format: uri
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
+          type: string
   responses:
     Unauthorized:
       description: Missing or invalid API key.

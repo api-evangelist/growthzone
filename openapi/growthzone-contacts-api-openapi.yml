@@ -261,6 +261,40 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    Contact:
+      type: object
+      properties:
+        ContactId:
+          type: string
+        Name:
+          type: string
+        ContactType:
+          type: string
+          enum:
+          - Individual
+          - Organization
+        MembershipStatusTypeId:
+          type: integer
+          description: Status code - 1 Prospective, 2 Active, 4 Courtesy, 8 NonMember, 16 Inactive, 32 Deleted.
+        Balance:
+          type: number
+        ImageUrl:
+          type: string
+          format: uri
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
+          type: string
+    Category:
+      type: object
+      properties:
+        CategoryId:
+          type: integer
+        Name:
+          type: string
     Address:
       type: object
       properties:
@@ -277,13 +311,6 @@ components:
         PostalCode:
           type: string
         Country:
-          type: string
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Code:
           type: string
     Membership:
       type: object
@@ -308,13 +335,6 @@ components:
           type: string
         CategoryId:
           type: integer
-    Category:
-      type: object
-      properties:
-        CategoryId:
-          type: integer
-        Name:
-          type: string
     ContactListResponse:
       type: object
       properties:
@@ -324,40 +344,15 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Contact'
-    Contact:
-      type: object
-      properties:
-        ContactId:
-          type: string
-        Name:
-          type: string
-        ContactType:
-          type: string
-          enum:
-          - Individual
-          - Organization
-        MembershipStatusTypeId:
-          type: integer
-          description: Status code - 1 Prospective, 2 Active, 4 Courtesy, 8 NonMember, 16 Inactive, 32 Deleted.
-        Balance:
-          type: number
-        ImageUrl:
-          type: string
-          format: uri
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
-    NotFound:
-      description: The requested resource was not found.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
     ContactId:
       name: contactId
       in: path
@@ -374,14 +369,19 @@ components:
         minimum: 1
         maximum: 500
         default: 100
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
+  responses:
+    NotFound:
+      description: The requested resource was not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey
