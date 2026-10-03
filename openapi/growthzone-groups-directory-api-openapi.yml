@@ -80,22 +80,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Group:
-      type: object
-      properties:
-        GroupId:
-          type: string
-        Name:
-          type: string
-        CategoryId:
-          type: integer
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Code:
-          type: string
     Contact:
       type: object
       properties:
@@ -116,6 +100,22 @@ components:
         ImageUrl:
           type: string
           format: uri
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
+          type: string
+    Group:
+      type: object
+      properties:
+        GroupId:
+          type: string
+        Name:
+          type: string
+        CategoryId:
+          type: integer
   responses:
     Unauthorized:
       description: Missing or invalid API key.

@@ -82,13 +82,20 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
+    Membership:
       type: object
       properties:
-        Message:
+        MembershipId:
           type: string
-        Code:
+        ContactId:
           type: string
+        MembershipTypeId:
+          type: integer
+        Status:
+          type: string
+        JoinDate:
+          type: string
+          format: date
     MembershipQuery:
       type: object
       properties:
@@ -109,29 +116,14 @@ components:
           type: string
         IsActive:
           type: boolean
-    Membership:
+    Error:
       type: object
       properties:
-        MembershipId:
+        Message:
           type: string
-        ContactId:
+        Code:
           type: string
-        MembershipTypeId:
-          type: integer
-        Status:
-          type: string
-        JoinDate:
-          type: string
-          format: date
   parameters:
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
     PageSize:
       name: pageSize
       in: query
@@ -141,6 +133,14 @@ components:
         minimum: 1
         maximum: 500
         default: 100
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
   responses:
     Unauthorized:
       description: Missing or invalid API key.
