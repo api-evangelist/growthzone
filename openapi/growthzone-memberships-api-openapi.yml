@@ -107,6 +107,13 @@ components:
           type: integer
         PageSize:
           type: integer
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
+          type: string
     MembershipType:
       type: object
       properties:
@@ -116,13 +123,13 @@ components:
           type: string
         IsActive:
           type: boolean
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Code:
-          type: string
+  responses:
+    Unauthorized:
+      description: Missing or invalid API key.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   parameters:
     PageSize:
       name: pageSize
@@ -141,13 +148,6 @@ components:
         type: integer
         minimum: 1
         default: 1
-  responses:
-    Unauthorized:
-      description: Missing or invalid API key.
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKeyAuth:
       type: apiKey

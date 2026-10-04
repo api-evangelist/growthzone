@@ -261,12 +261,43 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Category:
+    Membership:
       type: object
       properties:
-        CategoryId:
+        MembershipId:
+          type: string
+        ContactId:
+          type: string
+        MembershipTypeId:
           type: integer
-        Name:
+        Status:
+          type: string
+        JoinDate:
+          type: string
+          format: date
+    Address:
+      type: object
+      properties:
+        Type:
+          type: string
+        Line1:
+          type: string
+        Line2:
+          type: string
+        City:
+          type: string
+        StateProvince:
+          type: string
+        PostalCode:
+          type: string
+        Country:
+          type: string
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
           type: string
     Contact:
       type: object
@@ -288,45 +319,12 @@ components:
         ImageUrl:
           type: string
           format: uri
-    Membership:
+    Category:
       type: object
       properties:
-        MembershipId:
-          type: string
-        ContactId:
-          type: string
-        MembershipTypeId:
-          type: integer
-        Status:
-          type: string
-        JoinDate:
-          type: string
-          format: date
-    Group:
-      type: object
-      properties:
-        GroupId:
-          type: string
-        Name:
-          type: string
         CategoryId:
           type: integer
-    Address:
-      type: object
-      properties:
-        Type:
-          type: string
-        Line1:
-          type: string
-        Line2:
-          type: string
-        City:
-          type: string
-        StateProvince:
-          type: string
-        PostalCode:
-          type: string
-        Country:
+        Name:
           type: string
     ContactListResponse:
       type: object
@@ -337,14 +335,23 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/Contact'
-    Error:
+    Group:
       type: object
       properties:
-        Message:
+        GroupId:
           type: string
-        Code:
+        Name:
           type: string
+        CategoryId:
+          type: integer
   parameters:
+    ContactId:
+      name: contactId
+      in: path
+      required: true
+      description: The GrowthZone ContactId (individual or organization).
+      schema:
+        type: string
     PageSize:
       name: pageSize
       in: query
@@ -362,13 +369,6 @@ components:
         type: integer
         minimum: 1
         default: 1
-    ContactId:
-      name: contactId
-      in: path
-      required: true
-      description: The GrowthZone ContactId (individual or organization).
-      schema:
-        type: string
   responses:
     NotFound:
       description: The requested resource was not found.

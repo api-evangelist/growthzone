@@ -146,6 +146,14 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
+    ScheduledBillingRequest:
+      type: object
+      properties:
+        MembershipTypeId:
+          type: integer
+        BillingDate:
+          type: string
+          format: date
     Error:
       type: object
       properties:
@@ -165,14 +173,6 @@ components:
           type: string
         RecordCount:
           type: integer
-    ScheduledBillingRequest:
-      type: object
-      properties:
-        MembershipTypeId:
-          type: integer
-        BillingDate:
-          type: string
-          format: date
   responses:
     Unauthorized:
       description: Missing or invalid API key.
