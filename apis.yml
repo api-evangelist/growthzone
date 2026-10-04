@@ -211,6 +211,9 @@ apis:
   - type: Documentation
     url: https://integration.growthzone.com/growthzone-oauth-documentation/
 common:
+- type: CapabilityMap
+  url: capabilities/growthzone-capability-edges.yml
+  name: GrowthZone Business Capability Map
 - type: AgenticAccess
   url: agentic-access/growthzone-agentic-access.yml
 - type: DomainSecurity
