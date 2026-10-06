@@ -57,7 +57,7 @@ tags_raw:
 - Events
 - Billing
 created: '2026-07-05'
-modified: '2026-07-05'
+modified: '2026-10-06'
 specificationVersion: '0.23'
 apis:
 - aid: growthzone:growthzone-certifications-api
@@ -211,6 +211,10 @@ apis:
   - type: Documentation
     url: https://integration.growthzone.com/growthzone-oauth-documentation/
 common:
+- url: https://www.growthzone.com/blog
+  type: Blog
+- url: https://www.growthzone.com/blog/rss.xml
+  type: BlogRSS
 - type: CapabilityMap
   url: capabilities/growthzone-capability-edges.yml
   name: GrowthZone Business Capability Map
