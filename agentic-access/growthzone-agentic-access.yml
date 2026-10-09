@@ -1,20 +1,38 @@
-generated: '2026-07-15'
+generated: '2026-09-23'
 method: generated
-source: openapi/growthzone-openapi.yml
+source: openapi/growthzone-certifications-api-openapi.yml, openapi/growthzone-contacts-api-openapi.yml,
+  openapi/growthzone-events-api-openapi.yml, openapi/growthzone-groups-directory-api-openapi.yml,
+  openapi/growthzone-memberships-api-openapi.yml, openapi/growthzone-scheduled-billing-api-openapi.yml
 description: Recommended x-agentic-access execution contracts, classified heuristically from
   the OpenAPI. A governance starting point for exposing this API to AI agents — review and bind
   audience per deployment. See research/curity/agentic-governance/.
 summary:
   operations: 25
   by_action_class:
-    connected: 17
-    acting: 8
+    acting: 6
+    connected: 19
   by_consequence:
-    read: 17
-    physical: 6
-    write: 2
+    write: 1
+    read: 19
+    physical: 5
   human_in_the_loop_required: 0
 operations:
+- path: /certifications/{certificationContactId}/Components/{certificationComponentId}/Completed
+  method: post
+  operationId: markCertificationComponentCompleted
+  x-agentic-access:
+    action-class: acting
+    consequence: write
+    subject: required
+    audience: null
+    token:
+      max-ttl: 900
+    escalation:
+      human-in-the-loop: conditional
+      triggers:
+      - abnormal
+      - high-value
+    audit: required
 - path: /contacts
   method: get
   operationId: listContacts
@@ -135,6 +153,46 @@ operations:
     token:
       max-ttl: 3600
     audit: none
+- path: /events
+  method: get
+  operationId: listEvents
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /events/{eventId}
+  method: get
+  operationId: getEvent
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /GroupsApi_GetGroupsByCategories
+  method: post
+  operationId: getGroupsByCategories
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
+- path: /groups/{groupId}/members
+  method: get
+  operationId: listGroupMembers
+  x-agentic-access:
+    action-class: connected
+    consequence: read
+    subject: optional
+    token:
+      max-ttl: 3600
+    audit: none
 - path: /memberships/types
   method: get
   operationId: listMembershipTypes
@@ -149,62 +207,12 @@ operations:
   method: post
   operationId: listAllMemberships
   x-agentic-access:
-    action-class: acting
-    consequence: physical
-    subject: required
-    audience: null
-    token:
-      max-ttl: 300
-      exchange: true
-      purpose-required: true
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /GroupsApi_GetGroupsByCategories
-  method: post
-  operationId: getGroupsByCategories
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
-- path: /groups/{groupId}/members
-  method: get
-  operationId: listGroupMembers
-  x-agentic-access:
     action-class: connected
     consequence: read
     subject: optional
     token:
       max-ttl: 3600
     audit: none
-- path: /certifications/{certificationContactId}/Components/{certificationComponentId}/Completed
-  method: post
-  operationId: markCertificationComponentCompleted
-  x-agentic-access:
-    action-class: acting
-    consequence: write
-    subject: required
-    audience: null
-    token:
-      max-ttl: 900
-    escalation:
-      human-in-the-loop: conditional
-      triggers:
-      - abnormal
-      - high-value
-    audit: required
 - path: /scheduledbilling/membershiptype/items
   method: post
   operationId: previewScheduledBillingItems
@@ -305,23 +313,3 @@ operations:
       - abnormal
       - high-value
     audit: required
-- path: /events
-  method: get
-  operationId: listEvents
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
-- path: /events/{eventId}
-  method: get
-  operationId: getEvent
-  x-agentic-access:
-    action-class: connected
-    consequence: read
-    subject: optional
-    token:
-      max-ttl: 3600
-    audit: none
