@@ -260,37 +260,38 @@ paths:
         '401':
           $ref: '#/components/responses/Unauthorized'
 components:
+  parameters:
+    Page:
+      name: page
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        default: 1
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 1
+        maximum: 500
+        default: 100
+    ContactId:
+      name: contactId
+      in: path
+      required: true
+      description: The GrowthZone ContactId (individual or organization).
+      schema:
+        type: string
   schemas:
-    Membership:
+    Category:
       type: object
       properties:
-        MembershipId:
-          type: string
-        ContactId:
-          type: string
-        MembershipTypeId:
+        CategoryId:
           type: integer
-        Status:
-          type: string
-        JoinDate:
-          type: string
-          format: date
-    Address:
-      type: object
-      properties:
-        Type:
-          type: string
-        Line1:
-          type: string
-        Line2:
-          type: string
-        City:
-          type: string
-        StateProvince:
-          type: string
-        PostalCode:
-          type: string
-        Country:
+        Name:
           type: string
     Error:
       type: object
@@ -319,22 +320,23 @@ components:
         ImageUrl:
           type: string
           format: uri
-    Category:
+    Address:
       type: object
       properties:
-        CategoryId:
-          type: integer
-        Name:
+        Type:
           type: string
-    ContactListResponse:
-      type: object
-      properties:
-        TotalRecordAvailable:
-          type: integer
-        Results:
-          type: array
-          items:
-            $ref: '#/components/schemas/Contact'
+        Line1:
+          type: string
+        Line2:
+          type: string
+        City:
+          type: string
+        StateProvince:
+          type: string
+        PostalCode:
+          type: string
+        Country:
+          type: string
     Group:
       type: object
       properties:
@@ -344,31 +346,29 @@ components:
           type: string
         CategoryId:
           type: integer
-  parameters:
-    ContactId:
-      name: contactId
-      in: path
-      required: true
-      description: The GrowthZone ContactId (individual or organization).
-      schema:
-        type: string
-    PageSize:
-      name: pageSize
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        maximum: 500
-        default: 100
-    Page:
-      name: page
-      in: query
-      required: false
-      schema:
-        type: integer
-        minimum: 1
-        default: 1
+    Membership:
+      type: object
+      properties:
+        MembershipId:
+          type: string
+        ContactId:
+          type: string
+        MembershipTypeId:
+          type: integer
+        Status:
+          type: string
+        JoinDate:
+          type: string
+          format: date
+    ContactListResponse:
+      type: object
+      properties:
+        TotalRecordAvailable:
+          type: integer
+        Results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
   responses:
     NotFound:
       description: The requested resource was not found.

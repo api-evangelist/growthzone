@@ -80,13 +80,6 @@ paths:
           $ref: '#/components/responses/Unauthorized'
 components:
   schemas:
-    Error:
-      type: object
-      properties:
-        Message:
-          type: string
-        Code:
-          type: string
     Group:
       type: object
       properties:
@@ -96,6 +89,13 @@ components:
           type: string
         CategoryId:
           type: integer
+    Error:
+      type: object
+      properties:
+        Message:
+          type: string
+        Code:
+          type: string
     Contact:
       type: object
       properties:
